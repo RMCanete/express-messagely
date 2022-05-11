@@ -1,0 +1,34 @@
+@host = http://localhost:3000
+#####
+
+# @name postRegister
+POST {{host}}/auth/register
+Content-Type: application/json
+
+{
+  "username":"halimt87",
+  "password":"halimt90",
+  "first_name":"halim",
+  "last_name":"tannous", 
+  "phone":"012123123"  
+}
+
+###
+
+# @name postLogin
+POST {{host}}/auth/login
+Content-Type: application/json
+
+{
+  "username":"halimt87",
+  "password":"halimt90"
+}
+
+####
+
+GET {{host}}/users/
+Content-Type: application/json
+
+{
+    "_token":"{{postLogin.response.body.token}}"
+}
