@@ -21,12 +21,13 @@ router.post('/login', async (req, res, next) => {
         }
         if (await User.authenticate(username, password)) {
             const token = jwt.sign({ username }, SECRET_KEY);
+            User.updateLoginTimeStamp(username);
             return res.json({ message: 'Logged in!', token })
         } else {
             throw new ExpressError("Invalid credentials", 400)
         }
     }catch(err) {
-        next(err);
+        return next(err);
     }
 });
 
@@ -49,7 +50,7 @@ router.post('/login', async (req, res, next) => {
             return res.json({ message: 'Logged in!', token })
         } 
     }catch(err) {
-        next(err);
+        return next(err);
     }
 });
 module.exports = router;
