@@ -6,11 +6,11 @@ POST {{host}}/auth/register
 Content-Type: application/json
 
 {
-  "username":"halimt87",
-  "password":"halimt90",
-  "first_name":"halim",
-  "last_name":"tannous", 
-  "phone":"012123123"  
+  "username":"Mattie",
+  "password":"Mattie",
+  "first_name":"Mattie",
+  "last_name":"Canete", 
+  "phone":"4083154543"  
 }
 
 ###
@@ -20,8 +20,8 @@ POST {{host}}/auth/login
 Content-Type: application/json
 
 {
-  "username":"halimt87",
-  "password":"halimt90"
+  "username":"Mattie",
+  "password":"Mattie"
 }
 
 ####
@@ -31,4 +31,67 @@ Content-Type: application/json
 
 {
     "_token":"{{postLogin.response.body.token}}"
+}
+
+####
+
+GET {{host}}/users/Mattie
+Content-Type: application/json
+
+{
+    "username": "Mattie",
+    "_token":"{{postLogin.response.body.token}}"
+}
+
+############
+
+GET {{host}}/users/Mattie/to
+Content-Type: application/json
+
+{
+    "username": "Mattie",
+    "_token":"{{postLogin.response.body.token}}"
+}
+
+############
+
+GET {{host}}/users/Mattie/from
+Content-Type: application/json
+
+{
+    "username": "Mattie",
+    "_token":"{{postLogin.response.body.token}}"
+}
+
+####
+
+POST {{host}}/messages/
+Content-Type: application/json
+
+{
+    "_token":"{{postLogin.response.body.token}}",
+    "from_username":"Mattie",
+    "to_username":"Mattie",
+    "body":"Test Message"
+}
+
+####
+
+GET {{host}}/messages/3
+Content-Type: application/json
+
+{
+    "username": "Mattie",
+    "_token":"{{postLogin.response.body.token}}"
+}
+
+####
+
+POST {{host}}/messages/3/read
+Content-Type: application/json
+
+{
+    "username": "Mattie",
+    "_token":"{{postLogin.response.body.token}}"
+
 }

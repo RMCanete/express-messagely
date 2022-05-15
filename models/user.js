@@ -116,13 +116,13 @@ class User {
   static async messagesFrom(username) {
     try {
       const result = await db.query(
-        `SELECT messages.id, messages.to_username, message.body, message.sent_at, message.read_at,
-        user.first_name, user.last_name, user.phone 
+        `SELECT messages.id, messages.to_username, message.body, message.sent_at, 
+        message.read_at, user.first_name, user.last_name, user.phone 
         FROM messages
         JOIN users ON message.username = user.username
         WHERE username = $1
-        RETURNING messages.id, messages.to_username, message.body, message.sent_at, message.read_at,
-        user.first_name, user.last_name, user.phone`,
+        RETURNING messages.id, messages.to_username, message.body,
+         message.sent_at, message.read_at, user.first_name, user.last_name, user.phone`,
         [username]
       );
       if (!result.rows[0]) {
@@ -130,7 +130,7 @@ class User {
       }
       return result.rows[0];
     } catch (err) {
-      return next(err);
+      throw new ExpressError(err, 404);
     }
   }
 
@@ -145,13 +145,13 @@ class User {
   static async messagesTo(username) {
     try {
       const result = await db.query(
-        `SELECT messages.id, messages.from_username, message.body, message.sent_at, message.read_at,
-        user.first_name, user.last_name, user.phone 
+        `SELECT messages.id, messages.from_username, message.body, message.sent_at, 
+        message.read_at, user.first_name, user.last_name, user.phone 
         FROM messages
         JOIN users ON message.username = user.username
         WHERE username = $1
-        RETURNING messages.id, messages.from_username, message.body, message.sent_at, message.read_at,
-        user.first_name, user.last_name, user.phone`,
+        RETURNING messages.id, messages.from_username, message.body, 
+        message.sent_at, message.read_at, user.first_name, user.last_name, user.phone`,
         [username]
       );
       if (!result.rows[0]) {
@@ -159,7 +159,7 @@ class User {
       }
       return result.rows[0];
     } catch (err) {
-      throw new ExpressError("", 404);
+      throw new ExpressError(err, 404);
     }
   }
 }
